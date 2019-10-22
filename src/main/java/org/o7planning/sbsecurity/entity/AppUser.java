@@ -8,8 +8,8 @@ import javax.persistence.Table;
 import javax.persistence.UniqueConstraint;
 
 @Entity
-@Table(name = "App_User", //
-		uniqueConstraints = { //
+@Table(name = "App_User",
+		uniqueConstraints = {
 				@UniqueConstraint(name = "APP_USER_UK", columnNames = "User_Name") })
 public class AppUser {
 
@@ -21,8 +21,8 @@ public class AppUser {
 	@Column(name = "User_Name", length = 36, nullable = false)
 	private String userName;
 
-	@Column(name = "Encryted_Password", length = 128, nullable = false)
-	private String encrytedPassword;
+	@Column(name = "Encrypted_Password", length = 128, nullable = false)
+	private String encryptedPassword;
 
 	@Column(name = "Enabled", length = 1, nullable = false)
 	private boolean enabled;
@@ -43,12 +43,12 @@ public class AppUser {
 		this.userName = userName;
 	}
 
-	public String getEncrytedPassword() {
-		return encrytedPassword;
+	public String getEncryptedPassword() {
+		return encryptedPassword;
 	}
 
-	public void setEncrytedPassword(String encrytedPassword) {
-		this.encrytedPassword = encrytedPassword;
+	public void setEncryptedPassword(String encryptedPassword) {
+		this.encryptedPassword = encryptedPassword;
 	}
 
 	public boolean isEnabled() {

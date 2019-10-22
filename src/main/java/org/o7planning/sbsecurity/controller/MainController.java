@@ -1,26 +1,26 @@
 package org.o7planning.sbsecurity.controller;
 
-import java.security.Principal;
-
 import org.o7planning.sbsecurity.utils.WebUtils;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.GetMapping;
+
+import java.security.Principal;
 
 @Controller
 public class MainController {
 
-	@RequestMapping(value = { "/", "/welcome" }, method = RequestMethod.GET)
+	@GetMapping({"/", "/welcome"})
 	public String welcomePage(Model model) {
 		model.addAttribute("title", "Welcome");
 		model.addAttribute("message", "This is welcome page!");
+
 		return "welcomePage";
 	}
 
-	@RequestMapping(value = "/admin", method = RequestMethod.GET)
+	@GetMapping("/admin")
 	public String adminPage(Model model, Principal principal) {
 		User loginedUser = (User) ((Authentication) principal).getPrincipal();
 
@@ -30,24 +30,23 @@ public class MainController {
 		return "adminPage";
 	}
 
-	@RequestMapping(value = "/login", method = RequestMethod.GET)
+	@GetMapping("/login")
 	public String loginPage(Model model) {
 		return "loginPage";
 	}
 
-	@RequestMapping(value = "/logoutSuccessful", method = RequestMethod.GET)
+	@GetMapping("/logoutSuccessful")
 	public String logoutSuccessfulPage(Model model) {
 		model.addAttribute("title", "Logout");
+
 		return "logoutSuccessfulPage";
 	}
 
-	@RequestMapping(value = "/userInfo", method = RequestMethod.GET)
+	@GetMapping("/userInfo")
 	public String userInfo(Model model, Principal principal) {
 
 		// After user login successfully.
 		String userName = principal.getName();
-
-		System.out.println("User Name: " + userName);
 
 		User loginedUser = (User) ((Authentication) principal).getPrincipal();
 
@@ -57,7 +56,7 @@ public class MainController {
 		return "userInfoPage";
 	}
 
-	@RequestMapping(value = "/403", method = RequestMethod.GET)
+	@GetMapping("/403")
 	public String accessDenied(Model model, Principal principal) {
 		if (principal != null) {
 			User loginedUser = (User) ((Authentication) principal).getPrincipal();
@@ -66,8 +65,8 @@ public class MainController {
 
 			model.addAttribute("userInfo", userInfo);
 
-			String message = "Hi " + principal.getName() //
-					+ "<br> You do not have permission to access this page!";
+			String message = "Hi " + principal.getName() +
+					"<br> You do not have permission to access this page!";
 			model.addAttribute("message", message);
 		}
 

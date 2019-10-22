@@ -11,15 +11,17 @@ import org.springframework.transaction.annotation.Transactional;
 
 @Repository
 @Transactional
-public class AppUserDAO {
+public class AppUserRepository {
 
-	@Autowired
-	private EntityManager entityManager;
+	private final EntityManager entityManager;
+
+	public AppUserRepository(EntityManager entityManager) {
+		this.entityManager = entityManager;
+	}
 
 	public AppUser findUserAccount(String userName) {
-		System.out.println("userName = " + userName);
 		try {
-			String sql = "Select e from " + AppUser.class.getName() + " e " //
+			String sql = "Select e from " + AppUser.class.getName() + " e "
 					+ " Where e.userName = :userName ";
 
 			Query query = entityManager.createQuery(sql, AppUser.class);

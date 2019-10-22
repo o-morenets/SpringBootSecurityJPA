@@ -12,18 +12,21 @@ import org.springframework.transaction.annotation.Transactional;
 
 @Repository
 @Transactional
-public class AppRoleDAO {
+public class AppRoleRepository {
 
-	@Autowired
-	private EntityManager entityManager;
+	private final EntityManager entityManager;
+
+	public AppRoleRepository(EntityManager entityManager) {
+		this.entityManager = entityManager;
+	}
 
 	public List<String> getRoleNames(Long userId) {
-		System.out.println("userId = " + userId);
-		String sql = "Select ur.appRole.roleName from " + UserRole.class.getName() + " ur " //
+		String sql = "Select ur.appRole.roleName from " + UserRole.class.getName() + " ur "
 				+ " where ur.appUser.userId = :userId ";
 
 		Query query = this.entityManager.createQuery(sql, String.class);
 		query.setParameter("userId", userId);
+
 		return query.getResultList();
 	}
 
